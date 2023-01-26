@@ -5,7 +5,9 @@ using UnityEngine;
 public class Driver : MonoBehaviour
 {
     [SerializeField] float steerSpeed = 1f;
-    [SerializeField] float moveSpeed = 0.01f;
+    [SerializeField] float moveSpeed = 20f;
+    [SerializeField] float slowSpeed = 15f;
+    [SerializeField] float boostSpeed = 30f;
 
     // Start is called before the first frame update
     void Start() // callback
@@ -27,5 +29,13 @@ public class Driver : MonoBehaviour
         //각 프레임에 소요된 시간에 어떠한 값을 곱하면, 프레임률 독립성이라는 값을 구함. 
         //프레임율 독립성 : 게임이 컴퓨터의 속도에 상관없이 결과물이 동일한 동작으로 만들기 위해 계산
 
+    }
+    void OnCollisionEnter2D(Collision2D other) {
+        moveSpeed = slowSpeed;
+    }
+    void OnTriggerEnter2D(Collider2D other){
+        if (other.tag == "SpeedUp"){
+            moveSpeed = boostSpeed;
+        }
     }
 }
